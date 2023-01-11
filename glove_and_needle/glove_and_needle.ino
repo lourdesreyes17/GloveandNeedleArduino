@@ -5,31 +5,39 @@ int pwm_power_low = 0;
 
 // ----------- Arduino -----------
 void setup() {
+  // initialize serial communication:
+  Serial.begin(9600);
 }
 
 void loop() {
-  // print to vibration motors
-  // one side at a time
-  analogWrite(dot_pins[1], pwm_power);
-  analogWrite(dot_pins[2], pwm_power);
-  analogWrite(dot_pins[3], pwm_power);
-  analogWrite(dot_pins[4], pwm_power);
-  analogWrite(dot_pins[5], pwm_power);
-  analogWrite(dot_pins[6], pwm_power);
-  analogWrite(dot_pins[7], pwm_power);
-  analogWrite(dot_pins[8], pwm_power);
-  delay(1000);  // leave one column on for 1 second
-  refresh();
-}
+  // Wait for user input
+  while (Serial.available() == 0){ }
 
-// Set all of the solonoid dots to LOW
-void refresh() {
-  analogWrite(dot_pins[1], pwm_power_low);
-  analogWrite(dot_pins[2], pwm_power_low);
-  analogWrite(dot_pins[3], pwm_power_low);
-  analogWrite(dot_pins[4], pwm_power_low);
-  analogWrite(dot_pins[5], pwm_power_low);
-  analogWrite(dot_pins[6], pwm_power_low);
-  analogWrite(dot_pins[7], pwm_power_low);
-  analogWrite(dot_pins[8], pwm_power_low);
+  //After user input
+  int sequenceChoice = Serial.parseInt();
+
+  switch (sequenceChoice) {
+    case 1:
+      analogWrite(dot_pins[1], pwm_power);
+      delay(1000);
+    case 2:
+      analogWrite(dot_pins[2], pwm_power);
+      delay(1000);
+    case 3:
+      analogWrite(dot_pins[3], pwm_power);
+      delay(1000);
+    case 4:
+      analogWrite(dot_pins[4], pwm_power);
+      delay(1000);
+    case 9:
+      analogWrite(dot_pins[1], pwm_power_low);
+      analogWrite(dot_pins[2], pwm_power_low);
+      analogWrite(dot_pins[3], pwm_power_low);
+      analogWrite(dot_pins[4], pwm_power_low);
+      analogWrite(dot_pins[5], pwm_power_low);
+      analogWrite(dot_pins[6], pwm_power_low);
+      analogWrite(dot_pins[7], pwm_power_low);
+      analogWrite(dot_pins[8], pwm_power_low);
+      
   }
+}
