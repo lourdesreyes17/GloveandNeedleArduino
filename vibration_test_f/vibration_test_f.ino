@@ -1,16 +1,16 @@
 // Vibration pins
-int pin1 = 13
-int pin2 = 12
-int pin3 = 11
-int pin4 = 10 
-int pin5 = 9 
-int pin6 = 6 
-int pin7 = 5 
-int pin8 = 4
-int pwm_power = 0;  // out of 255
+int vsa = 10;
+int vsb = 11;
+int vsc = 9;
+int vsd = 5;
+int vse = 4;
+int vsf = 6;
+//int vs7 = 5;
+//int vs8 = 3;
+int pwm_power = 150;  // out of 255
 int pwm_power_low = 0;
 int input = 0;  // for incoming serial data
-
+int delay_time = 300;
 // ----------- Arduino -----------
 void setup() {
   Serial.begin(9600);  // opens serial port, sets data rate to 9600 bps
@@ -20,59 +20,85 @@ void loop() {
   // print to vibration motors
   // one side at a time
 
-  // send data only when you receive data:
-  if (Serial.available() > 0) {
-    // read the incoming byte:
-    input = Serial.read();
+  //wait for user input
+  while (Serial.available() == 0) {
+    /*
+      analogWrite(vsa, pwm_power_low);
+      analogWrite(vsb, pwm_power_low);
+      analogWrite(vsc, pwm_power_low);
+      analogWrite(vsd, pwm_power_low);
+      analogWrite(vse, pwm_power_low);
+      analogWrite(vsf, pwm_power_low);
+      analogWrite(vs7, pwm_power_low);
+      analogWrite(vs8, pwm_power_low);
+    */
+  }
+  analogWrite(vsa, pwm_power_low);
+  analogWrite(vsb, pwm_power_low);
+  analogWrite(vsc, pwm_power_low);
+  analogWrite(vsd, pwm_power_low);
+  analogWrite(vse, pwm_power_low);
+  analogWrite(vsf, pwm_power_low);
+
+
+  int sequenceChoice = Serial.parseInt();
+   //char sequenceChoice = Serial.read();
+
+  switch (sequenceChoice) {
+    case 1: // Left
+      analogWrite(vse, pwm_power);
+      delay(delay_time);
+      analogWrite(vsc, pwm_power);
+      delay(delay_time);
+      analogWrite(vsd, pwm_power);
+      delay(delay_time);
+      break;
+    case 2: // Right
+      analogWrite(vsd, pwm_power);
+      delay(delay_time);
+      analogWrite(vsc, pwm_power);
+      delay(delay_time);
+      analogWrite(vse, pwm_power);
+      delay(delay_time);
+      break;
+    case 3: //Forward
+      analogWrite(vsa, pwm_power);
+      delay(delay_time);
+      analogWrite(vsb, pwm_power);
+      delay(delay_time);
+      analogWrite(vsc, pwm_power);
+      delay(delay_time);
+      break;
+    case 4: // Back
+      analogWrite(vsc, pwm_power);
+      delay(delay_time);
+      analogWrite(vsb, pwm_power);
+      delay(delay_time);
+      analogWrite(vsa, pwm_power);
+      delay(delay_time);
+      break;
+      /*
+        case 5: //Up
+        analogWrite(vs7, pwm_power);
+        delay(delay_time);
+        analogWrite(vsb, pwm_power);
+        delay(delay_time);
+        case 6: //Down
+        analogWrite(vsb, pwm_power);
+        delay(delay_time);
+        analogWrite(vs7, pwm_power);
+        delay(delay_time);
+        case 9: // Test pins
+        analogWrite(vsa, pwm_power);
+      */
   }
 
-  if (input = left) {
-    analogWrite(pin5, pwm_power);
-    delay(100)
-      analogWrite(pin2, pwm_power);
-    delay(100)
-      analogWrite(pin4, pwm_power);
-    delay(100)
-  }
-
-  if (input = right) {
-    analogWrite(pin4, pwm_power);
-    delay(100)
-      analogWrite(pin2, pwm_power);
-    delay(100)
-      analogWrite(pin5, pwm_power);
-    delay(100)
-  }
-
-  if (input = forward) {
-    analogWrite(pin3, pwm_power);
-    delay(100)
-      analogWrite(pin2, pwm_power);
-  delay(100)
-  analogWrite(pin1, pwm_power);
-  delay(100)
-}
-
-if (input = backward) {
-  analogWrite(pin1, pwm_power);
-  delay(100)
-    analogWrite(pin2, pwm_power);
-  delay(100)
-  analogWrite(pin3, pwm_power);
-delay(100)
-}
-
-if (input = up) {
-  analogWrite(pin7, pwm_power);
-  delay(100)
-    analogWrite(pin2, pwm_power);
-  delay(100)
-}
-
-if (input = down) {
-  analogWrite(pin2, pwm_power);
-  delay(100)
-    analogWrite(pin7, pwm_power);
-  delay(100)
-}
+  analogWrite(vsa, pwm_power_low);
+  analogWrite(vsb, pwm_power_low);
+  analogWrite(vsc, pwm_power_low);
+  analogWrite(vsd, pwm_power_low);
+  analogWrite(vse, pwm_power_low);
+  analogWrite(vsf, pwm_power_low);
+  //analogWrite(vs7, pwm_power_low);
+  //analogWrite(vs8, pwm_power_low);
 }
