@@ -22,7 +22,15 @@ void loop() {
   int sequenceChoice = Serial.parseInt();
 
   switch (sequenceChoice) {
-    case 1: // Left
+    case 1: // Right
+      analogWrite(vsd, pwm_power);
+      delay(delay_time);
+      analogWrite(vsc, pwm_power);
+      delay(delay_time);
+      analogWrite(vse, pwm_power);
+      delay(delay_time);
+      break; 
+    case 2: // Left
       analogWrite(vse, pwm_power);
       delay(delay_time);
       analogWrite(vsc, pwm_power);
@@ -30,15 +38,7 @@ void loop() {
       analogWrite(vsd, pwm_power);
       delay(delay_time);
       break;
-    case 2: // Right
-      analogWrite(vsd, pwm_power);
-      delay(delay_time);
-      analogWrite(vsc, pwm_power);
-      delay(delay_time);
-      analogWrite(vse, pwm_power);
-      delay(delay_time);
-      break;
-    case 3: //Forward
+    case 3: //Up
       analogWrite(vsc, pwm_power);
       delay(delay_time);
       analogWrite(vsb, pwm_power);
@@ -46,7 +46,7 @@ void loop() {
       analogWrite(vsa, pwm_power);
       delay(delay_time);
       break;
-    case 4: // Back  
+    case 4: // Down  
       analogWrite(vsa, pwm_power);
       delay(delay_time);
       analogWrite(vsb, pwm_power);
