@@ -23,18 +23,10 @@ void loop() {
 
   switch (sequenceChoice) {
     case 1: // Right
-      analogWrite(vsd, pwm_power);
-      delay(delay_time);
-      analogWrite(vsc, pwm_power);
-      delay(delay_time);
       analogWrite(vse, pwm_power);
       delay(delay_time);
       break; 
     case 2: // Left
-      analogWrite(vse, pwm_power);
-      delay(delay_time);
-      analogWrite(vsc, pwm_power);
-      delay(delay_time);
       analogWrite(vsd, pwm_power);
       delay(delay_time);
       break;
