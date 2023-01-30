@@ -1,5 +1,5 @@
 // Vibration pins
-int vsa = 10;
+int vsa = 12;
 int vsb = 11;
 int vsc = 9;
 int vsd = 5;
