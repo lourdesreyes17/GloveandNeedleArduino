@@ -6,12 +6,12 @@ int vsd = 5;
 int vse = 4;
 int vsf = 6;
 
-int pwm_power = 150;  // out of 255
+int pwm_power = 255;  // out of 255
 int pwm_power_low = 0;
 int delay_time = 300;
 // ----------- Arduino -----------
 void setup() {
-  Serial.begin(9600);  // opens serial port, sets data rate to 9600 bps
+  Serial.begin(74880);  // opens serial port, sets data rate to 74880 bps
 }
 
 void loop() {
@@ -23,28 +23,40 @@ void loop() {
 
   switch (sequenceChoice) {
     case 1: // Right
-      analogWrite(vse, pwm_power);
-      delay(delay_time);
-      break; 
-    case 2: // Left
       analogWrite(vsd, pwm_power);
       delay(delay_time);
+      analogWrite(vsd, pwm_power_low);
+      break; 
+    case 2: // Left
+      analogWrite(vse, pwm_power);
+      delay(delay_time);
+      analogWrite(vse, pwm_power_low);
       break;
     case 3: //Up
       analogWrite(vsc, pwm_power);
-      delay(delay_time);
+      delay(delay_time-100);
+      analogWrite(vsc, pwm_power_low);
+      
       analogWrite(vsb, pwm_power);
-      delay(delay_time);
+      delay(delay_time-100);
+      analogWrite(vsb, pwm_power_low);
+      
       analogWrite(vsa, pwm_power);
-      delay(delay_time);
+      delay(delay_time-100);
+      analogWrite(vsa, pwm_power_low);
       break;
     case 4: // Down  
       analogWrite(vsa, pwm_power);
-      delay(delay_time);
+      delay(delay_time-100);
+      analogWrite(vsa, pwm_power_low);
+      
       analogWrite(vsb, pwm_power);
-      delay(delay_time);
+      delay(delay_time-100);
+      analogWrite(vsb, pwm_power_low);
+      
       analogWrite(vsc, pwm_power);
-      delay(delay_time);
+      delay(delay_time-100);
+      analogWrite(vsc, pwm_power_low);
       break;
   }
 
